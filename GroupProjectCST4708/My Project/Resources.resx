@@ -117,4 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gskill_ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\gskill_ram.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="team_ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\team_ram.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nvidia_gpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\nvidia_gpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shopping" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\shopping.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="corsair_ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\corsair_ram.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="amd_cpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\amd_cpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="amd_gpu2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Q:\Fall2021-Spring2022\Spring 2022\CST4708 (D780) - Software Dev. &amp; .Net Framework\Group Project\Images\amd_gpu2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
