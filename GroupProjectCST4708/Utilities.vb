@@ -1,24 +1,21 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Utilities
-    Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\CST4708_Team4\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
-    Dim myConn As SqlConnection
+    ReadOnly connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+    Dim myConn As SqlConnection 
     Dim loginCmd As SqlCommand
     Dim registerCmd As SqlCommand
     Dim getIDCmd As SqlCommand
     Dim getNameCmd As SqlCommand
     Dim getCardCmd As SqlCommand
-    Dim getCPUCmd As SqlCommand
-    Dim getGPUCmd As SqlCommand
-    Dim getRAMCmd As SqlCommand
+    Dim getDataCmd As SqlCommand
     Dim myAdapter As New SqlDataAdapter
     Dim myReader As SqlDataReader
+    Dim dataSet As New DataSet
     Dim mydt As DataTable
-    Dim cpuList As ArrayList
-    Dim gpuList As ArrayList
-    Dim ramList As ArrayList
+    Dim dataList As ArrayList
 
-    Public Function authorizeLogin(email As String, pass As String) As String
+    Public Function AuthorizeLogin(email As String, pass As String) As String
         'Connect to the db, select the email and password, compare it to the input from user, return true if matches, false if not
         myConn = New SqlConnection()
         myConn.ConnectionString = connectionString
@@ -52,7 +49,7 @@ Public Class Utilities
         myConn.Close()
     End Function
 
-    Public Function registerCustomer(first As String, last As String, email As String, pass As String, card As String)
+    Public Function RegisterCustomer(first As String, last As String, email As String, pass As String, card As String)
         'Connect to the db, add all values passed to this function into the db, return data
         myConn = New SqlConnection()
         mydt = New DataTable()
@@ -88,7 +85,7 @@ Public Class Utilities
         myConn.Close()
     End Function
 
-    Public Function getID()
+    Public Function GetID()
         'Connect to the db, select the user id# matching their email address and password
         myConn = New SqlConnection()
         myConn.ConnectionString = connectionString
@@ -110,11 +107,11 @@ Public Class Utilities
         End While
 
         'Default value
-        Return False
+        Return "GetID() Error"
         myConn.Close()
     End Function
 
-    Public Function getFullName()
+    Public Function GetFullName() As String
         'Connect to the db, select the user first and last name matching their email address and password
         myConn = New SqlConnection()
         myConn.ConnectionString = connectionString
@@ -136,11 +133,11 @@ Public Class Utilities
         End While
 
         'Default value
-        Return False
+        Return "GetFullName() Error"
         myConn.Close()
     End Function
 
-    Public Function getCardNum()
+    Public Function GetCardNum() As String
         'Connect to the db, select the card info matching their email address and password
         myConn = New SqlConnection()
         myConn.ConnectionString = connectionString
@@ -162,31 +159,145 @@ Public Class Utilities
         End While
 
         'Default value
-        Return False
+        Return "GetCardNum() Error"
         myConn.Close()
     End Function
 
-    Public Function getCPU()
-        'Connect to the db, select everything where the itemType = CPU, put the info in an array list for later
+    Public Function GetDTData(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
         myConn = New SqlConnection()
         myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
-        getCPUCmd = New SqlCommand()
-        getCPUCmd.CommandText = "SELECT * FROM cpu_info;"
-        getCPUCmd.Connection = myConn
-        myAdapter.SelectCommand = getCPUCmd
-        myReader = getCPUCmd.ExecuteReader()
-
-        cpuList = New ArrayList
-        While myReader.Read
-            Dim cardInfo As String = myReader.GetValue(0)
-            Return cardInfo
-        End While
-
-        'Default value
-        Return False
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT * FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
         myConn.Close()
     End Function
+
+    Public Function GetItemName(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT name FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemPrice(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT price FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemManufacturer(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT manufacturer FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemCore(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT core FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemSpeed(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT [cpu speed] speed FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemSocket(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT [cpu socket] FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemDescription(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT description FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
 
 End Class
