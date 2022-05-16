@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Utilities
+    Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\CST4708_Team4\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
     Dim myConn As SqlConnection
     Dim loginCmd As SqlCommand
     Dim registerCmd As SqlCommand
@@ -20,7 +21,7 @@ Public Class Utilities
     Public Function authorizeLogin(email As String, pass As String) As String
         'Connect to the db, select the email and password, compare it to the input from user, return true if matches, false if not
         myConn = New SqlConnection()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         loginCmd = New SqlCommand()
@@ -55,7 +56,7 @@ Public Class Utilities
         'Connect to the db, add all values passed to this function into the db, return data
         myConn = New SqlConnection()
         mydt = New DataTable()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         registerCmd = New SqlCommand()
@@ -90,7 +91,7 @@ Public Class Utilities
     Public Function getID()
         'Connect to the db, select the user id# matching their email address and password
         myConn = New SqlConnection()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         getIDCmd = New SqlCommand()
@@ -116,7 +117,7 @@ Public Class Utilities
     Public Function getFullName()
         'Connect to the db, select the user first and last name matching their email address and password
         myConn = New SqlConnection()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         getNameCmd = New SqlCommand()
@@ -142,7 +143,7 @@ Public Class Utilities
     Public Function getCardNum()
         'Connect to the db, select the card info matching their email address and password
         myConn = New SqlConnection()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         getCardCmd = New SqlCommand()
@@ -168,7 +169,7 @@ Public Class Utilities
     Public Function getCPU()
         'Connect to the db, select everything where the itemType = CPU, put the info in an array list for later
         myConn = New SqlConnection()
-        myConn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+        myConn.ConnectionString = connectionString
         myConn.Open()
         'MessageBox.Show("Open Successful")
         getCPUCmd = New SqlCommand()
