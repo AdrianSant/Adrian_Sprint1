@@ -10,25 +10,40 @@
         TextBox2.Text = name
 
         'Using helper class
-        Dim table As String = "cpu_info"
+        Dim table1 As String = "cpu_info"
+        Dim table2 As String = "gpu_info"
+        Dim table3 As String = "ram_info"
 
         'Add data to panel 1
-        Dim cpu1Name = helper.GetItemName(table, 0, 0)
-        Dim cpu1Price = helper.GetItemPrice(table, 0, 0)
-        Dim cpu1Manu = helper.GetItemManufacturer(table, 0, 0)
-        Dim cpu1Core = helper.GetItemCore(table, 0, 0)
-        Dim cpu1Speed = helper.GetItemSpeed(table, 0, 0)
-        Dim cpu1Socket = helper.GetItemSocket(table, 0, 0)
-        Dim cpu1Desc = helper.GetItemDescription(table, 0, 0)
-        Label1.Text = "Name: " + cpu1Name
-        Label2.Text = "Price: $" + cpu1Price.ToString
-        Label3.Text = "Manufacturer: " + cpu1Manu
-        Label4.Text = "Core Count: " + cpu1Core.ToString
-        Label5.Text = "Clock Speed: " + cpu1Speed.ToString
-        Label6.Text = "Socket Type: " + cpu1Socket
-        Label7.Text = "Item Description: " + cpu1Desc
+        Dim cpuName = helper.GetItemName(table1, 0, 0)
+        Dim cpuPrice = helper.GetItemPrice(table1, 0, 0)
+        Dim cpuManu = helper.GetItemManufacturer(table1, 0, 0)
+        Dim cpuCore = helper.GetItemCore(table1, 0, 0)
+        Dim cpuSpeed = helper.GetItemSpeed(table1, 0, 0)
+        Dim cpuSocket = helper.GetItemSocket(table1, 0, 0)
+        Dim cpudesc = helper.GetItemDescription(table1, 0, 0)
+        Label1.Text = "Name: " + cpuName
+        Label2.Text = "Price: $" + cpuPrice.ToString
+        Label3.Text = "Manufacturer: " + cpuManu
+        Label4.Text = "Core Count: " + cpuCore.ToString
+        Label5.Text = "Clock Speed: " + cpuSpeed.ToString
+        Label6.Text = "Socket Type: " + cpuSocket
+        Label7.Text = "Item Description: " + cpudesc
 
         'Add data to panel 2
+        Dim gpuName = helper.GetItemName(table2, 0, 0)
+        Dim gpuPrice = helper.GetItemPrice(table2, 0, 0)
+        Dim gpuManu = helper.GetItemManufacturer(table2, 0, 0)
+        Dim gpuMem = helper.GetItemVideoMemory(table2, 0, 0)
+        Dim gpuInter = helper.GetItemInterface(table2, 0, 0)
+        Dim gpuDesc = helper.GetItemDescription(table2, 0, 0)
+        Label14.Text = "Name: " + gpuName
+        Label13.Text = "Price: $" + gpuPrice.ToString
+        Label12.Text = "Manufacturer: " + gpuManu
+        Label11.Text = "Video Memory Capacity: " + gpuMem
+        Label10.Text = "Interface Type: " + gpuInter
+        Label9.Text = "Item Description: " + gpuDesc
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Utilities
-    ReadOnly connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\palad\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
+    ReadOnly connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\CST4708_Team4\CST4708_GroupProject.mdf';Integrated Security=True;Connect Timeout=30"
     Dim myConn As SqlConnection 
     Dim loginCmd As SqlCommand
     Dim registerCmd As SqlCommand
@@ -275,6 +275,40 @@ Public Class Utilities
         'MessageBox.Show("Open Successful")
         getDataCmd = New SqlCommand()
         getDataCmd.CommandText = "SELECT [cpu socket] FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemInterface(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT interface FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemVideoMemory(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT [video memory capacity] FROM " + table + ";"
         getDataCmd.Connection = myConn
         myAdapter.SelectCommand = getDataCmd
         myAdapter.Fill(dataSet, table)
