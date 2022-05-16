@@ -177,7 +177,7 @@ Public Class Utilities
         myAdapter.SelectCommand = getCPUCmd
         myReader = getCPUCmd.ExecuteReader()
 
-
+        cpuList = New ArrayList
         While myReader.Read
             Dim cardInfo As String = myReader.GetValue(0)
             Return cardInfo

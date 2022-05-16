@@ -22,7 +22,6 @@ Partial Class HomeForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HomeForm))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.AllCategoriesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -195,7 +194,6 @@ Partial Class HomeForm
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.GroupProjectCST4708.My.Resources.Resources.shopping
         Me.PictureBox1.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(125, 62)
@@ -296,7 +294,6 @@ Partial Class HomeForm
         '
         'PictureBox2
         '
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(125, 62)
@@ -356,7 +353,6 @@ Partial Class HomeForm
         '
         'PictureBox3
         '
-        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
         Me.PictureBox3.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(125, 62)
@@ -416,7 +412,6 @@ Partial Class HomeForm
         '
         'PictureBox4
         '
-        Me.PictureBox4.Image = Global.GroupProjectCST4708.My.Resources.Resources.amd_gpu2
         Me.PictureBox4.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(125, 62)
@@ -476,7 +471,6 @@ Partial Class HomeForm
         '
         'PictureBox5
         '
-        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
         Me.PictureBox5.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox5.Name = "PictureBox5"
         Me.PictureBox5.Size = New System.Drawing.Size(125, 62)
@@ -536,7 +530,6 @@ Partial Class HomeForm
         '
         'PictureBox6
         '
-        Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
         Me.PictureBox6.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(125, 62)
@@ -596,7 +589,6 @@ Partial Class HomeForm
         '
         'PictureBox7
         '
-        Me.PictureBox7.Image = CType(resources.GetObject("PictureBox7.Image"), System.Drawing.Image)
         Me.PictureBox7.Location = New System.Drawing.Point(0, 26)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(125, 62)
