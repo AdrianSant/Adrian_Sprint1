@@ -9,11 +9,16 @@ Public Class Utilities
     Dim getNameCmd As SqlCommand
     Dim getCardCmd As SqlCommand
     Dim getDataCmd As SqlCommand
+    Dim getCountCmd As SqlCommand
+    Dim getTotalCmd As SqlCommand
+    Dim resetCmd As SqlCommand
+    Dim sendCmd As SqlCommand
+    Dim addOrdersCmd As SqlCommand
+    Dim deleteOrdersCmd As SqlCommand
     Dim myAdapter As New SqlDataAdapter
     Dim myReader As SqlDataReader
     Dim dataSet As New DataSet
     Dim mydt As DataTable
-    Dim dataList As ArrayList
 
     Public Function AuthorizeLogin(email As String, pass As String) As String
         'Connect to the db, select the email and password, compare it to the input from user, return true if matches, false if not
@@ -35,7 +40,7 @@ Public Class Utilities
             If myReader.HasRows = True Then
                 'MessageBox.Show("Returned: True")
                 'If an admin logged in
-                If email.Equals("adrian.santos@mail.citytech.cuny.edu") And pass.Equals("password1") Then
+                If email.Equals("adrian") And pass.Equals("password1") Then
                     Return "Admin"
                 End If
 
@@ -71,7 +76,7 @@ Public Class Utilities
         registerCmd.Connection = myConn
         myAdapter.UpdateCommand = registerCmd
 
-        'if registration is successful, returns succcess. if not, returns unsuccessful
+        'if registration is successful, returns true. if not, returns false
         Dim result As Boolean
         If (registerCmd.ExecuteNonQuery().Equals(1)) Then
             myAdapter.Update(mydt)
@@ -248,7 +253,7 @@ Public Class Utilities
         myConn.Close()
     End Function
 
-    Public Function GetItemSpeed(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+    Public Function GetItemCPUSpeed(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
         'Connect to the db, select everything from specified data table, return dataset with data in it
         dataSet.Reset()
         Dim table As String = dt
@@ -316,6 +321,40 @@ Public Class Utilities
         myConn.Close()
     End Function
 
+    Public Function GetItemMemory(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT memory FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
+    Public Function GetItemSpeed(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
+        'Connect to the db, select everything from specified data table, return dataset with data in it
+        dataSet.Reset()
+        Dim table As String = dt
+        myConn = New SqlConnection()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getDataCmd = New SqlCommand()
+        getDataCmd.CommandText = "SELECT memory FROM " + table + ";"
+        getDataCmd.Connection = myConn
+        myAdapter.SelectCommand = getDataCmd
+        myAdapter.Fill(dataSet, table)
+        Return dataSet.Tables(table).Rows(recordnum).Item(fieldnum)
+        myConn.Close()
+    End Function
+
     Public Function GetItemDescription(dt As String, ByVal recordnum As Integer, ByVal fieldnum As Integer)
         'Connect to the db, select everything from specified data table, return dataset with data in it
         dataSet.Reset()
@@ -333,5 +372,181 @@ Public Class Utilities
         myConn.Close()
     End Function
 
+    Public Function AddToCart(table As String, name As String, price As String)
+        'Connect to the db, add the item to orders table
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        addOrdersCmd = New SqlCommand()
+        Dim tableName As String = table + ".name"
+        Dim tablePrice As String = table + ".price"
+        addOrdersCmd.CommandText = "INSERT INTO Orders(name, price) SELECT " + tableName + "," + tablePrice + " FROM " + table + " WHERE " + tableName + " = '" + name + "' AND " + tablePrice + " = '" + price + "';"
+        'addOrdersCmd.Parameters.Add("@name", SqlDbType.VarChar, 50, "name")
+        'addOrdersCmd.Parameters.Add("@price", SqlDbType.VarChar, 50, "price")
+        'addOrdersCmd.Parameters("@name").Value = name
+        'addOrdersCmd.Parameters("@price").Value = price
+        addOrdersCmd.Connection = myConn
+        myAdapter.UpdateCommand = addOrdersCmd
 
+        'if the item is successfully added to orders, returns true. if not, returns false
+        Dim result As Boolean
+        If (addOrdersCmd.ExecuteNonQuery().Equals(1)) Then
+            myAdapter.Update(mydt)
+            'MessageBox.Show("Returned True")
+            result = True
+        Else
+            'MessageBox.Show("Returned False")
+            result = False
+        End If
+
+        Return result
+
+        myConn.Close()
+    End Function
+
+    Public Function DeleteOrdersTable()
+        'Connect to the db, delete all rows in the Orders table
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        deleteOrdersCmd = New SqlCommand()
+        deleteOrdersCmd.CommandText = "DELETE FROM Orders;"
+        deleteOrdersCmd.Connection = myConn
+        myAdapter.UpdateCommand = deleteOrdersCmd
+
+        'if the table is clear, returns true. if not, returns false
+        Dim result As Boolean
+        If (deleteOrdersCmd.ExecuteNonQuery().Equals(0)) Then
+            result = False
+        Else
+            myAdapter.Update(mydt)
+            MessageBox.Show("Cart Clear")
+            result = True
+        End If
+
+        Return result
+
+        myConn.Close()
+    End Function
+
+    Public Function GetColumnCount()
+        'Connect to the db, return number of items in a column
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getCountCmd = New SqlCommand()
+        getCountCmd.CommandText = "SELECT COUNT(id) FROM Orders;"
+        getCountCmd.Connection = myConn
+        myAdapter.SelectCommand = getCountCmd
+
+        'get the number of items in the id column, return the number
+        Dim count As Integer = getCountCmd.ExecuteScalar()
+        Return count
+
+        myConn.Close()
+    End Function
+
+    Public Function ResetSeed()
+        'Connect to the db, reset ident seed of id field to 1
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        resetCmd = New SqlCommand()
+        resetCmd.CommandText = "DBCC CHECKIDENT (Orders, RESEED, 0);"
+        resetCmd.Connection = myConn
+        myAdapter.SelectCommand = resetCmd
+
+        'If reset successful, return true. if not, return false
+        Dim result As Boolean
+        If (resetCmd.ExecuteNonQuery().Equals(0)) Then
+            'MessageBox.Show("False")
+            result = False
+        Else
+            myAdapter.Update(mydt)
+            'MessageBox.Show("True")
+            result = True
+        End If
+
+        Return result
+
+        myConn.Close()
+    End Function
+
+    Public Sub BindToDGV(dgv As DataGridView, table As String)
+        'Bind dataset to datagridview1
+        Using con As New SqlConnection(connectionString)
+            Using cmd As New SqlCommand("SELECT * FROM " + table + ";", con)
+                cmd.CommandType = CommandType.Text
+                Using sda As New SqlDataAdapter(cmd)
+                    Using dt As New DataTable()
+                        sda.Fill(dt)
+                        dgv.DataSource = dt
+                    End Using
+                End Using
+            End Using
+        End Using
+    End Sub
+
+    Public Function GetTotalPrice()
+        'Connect to the db, return total price of items in the price column
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        getTotalCmd = New SqlCommand()
+        getTotalCmd.CommandText = "SELECT COALESCE(SUM(price),0) FROM Orders;"
+        getTotalCmd.Connection = myConn
+        myAdapter.SelectCommand = getTotalCmd
+
+        'get the sum of values in the price column, return the number
+        Dim sum = getTotalCmd.ExecuteScalar()
+        Return sum
+
+        myConn.Close()
+    End Function
+
+    Public Function SendDataToTransactions(id As Integer, name As String, card As String, totalItems As Integer, totalPrice As Double)
+        'Connect to the db, send the order data to transactions table
+        myConn = New SqlConnection()
+        mydt = New DataTable()
+        myConn.ConnectionString = connectionString
+        myConn.Open()
+        'MessageBox.Show("Open Successful")
+        sendCmd = New SqlCommand()
+        sendCmd.CommandText = "INSERT INTO Transactions(customerID, customerName, cardNumber, numberOfItemsSold, totalPrice) Values (@id, @name, @card, @items, @price);"
+        sendCmd.Parameters.Add("@id", SqlDbType.Int, 100, "customerID")
+        sendCmd.Parameters.Add("@name", SqlDbType.VarChar, 100, "customerName")
+        sendCmd.Parameters.Add("@card", SqlDbType.VarChar, 50, "cardNumber")
+        sendCmd.Parameters.Add("@items", SqlDbType.VarChar, 500, "numberOfItemsSold")
+        sendCmd.Parameters.Add("@price", SqlDbType.VarChar, 500, "totalPrice")
+        sendCmd.Parameters("@id").Value = id
+        sendCmd.Parameters("@name").Value = name
+        sendCmd.Parameters("@card").Value = card
+        sendCmd.Parameters("@items").Value = totalItems
+        sendCmd.Parameters("@price").Value = totalPrice
+        sendCmd.Connection = myConn
+        myAdapter.UpdateCommand = sendCmd
+
+        'if data is successfully sent, returns true. if not, returns false
+        Dim result As Boolean
+        If (sendCmd.ExecuteNonQuery().Equals(1)) Then
+            myAdapter.Update(mydt)
+            result = True
+        Else
+            result = False
+        End If
+
+        Return result
+
+        myConn.Close()
+    End Function
 End Class

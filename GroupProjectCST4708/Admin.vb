@@ -8,5 +8,8 @@
         'set the user id and full name into their textboxes
         TextBox1.Text = id
         TextBox2.Text = name
+
+        'Bind data from Orders to datagridview
+        helper.BindToDGV(DataGridView1, "Transactions")
     End Sub
 End Class

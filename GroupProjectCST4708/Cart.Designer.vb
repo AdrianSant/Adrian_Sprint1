@@ -22,12 +22,13 @@ Partial Class Cart
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Cart))
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -38,6 +39,10 @@ Partial Class Cart
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.UtilitiesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UtilitiesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button2
@@ -83,14 +88,6 @@ Partial Class Cart
         Me.Label16.Size = New System.Drawing.Size(45, 20)
         Me.Label16.TabIndex = 20
         Me.Label16.Text = "Total:"
-        '
-        'ListView1
-        '
-        Me.ListView1.Location = New System.Drawing.Point(12, 32)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(756, 303)
-        Me.ListView1.TabIndex = 19
-        Me.ListView1.UseCompatibleStateImageBehavior = False
         '
         'TextBox1
         '
@@ -177,11 +174,28 @@ Partial Class Cart
         Me.Label3.TabIndex = 33
         Me.Label3.Text = "Shipping Cost:"
         '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(12, 32)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowHeadersWidth = 51
+        Me.DataGridView1.RowTemplate.Height = 29
+        Me.DataGridView1.Size = New System.Drawing.Size(776, 305)
+        Me.DataGridView1.TabIndex = 35
+        '
+        'UtilitiesBindingSource
+        '
+        Me.UtilitiesBindingSource.DataSource = GetType(GroupProjectCST4708.Utilities)
+        '
         'Cart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(800, 527)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.TextBox4)
@@ -197,9 +211,10 @@ Partial Class Cart
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.TextBox6)
         Me.Controls.Add(Me.Label16)
-        Me.Controls.Add(Me.ListView1)
         Me.Name = "Cart"
         Me.Text = "Cart"
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UtilitiesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -210,7 +225,6 @@ Partial Class Cart
     Friend WithEvents Label17 As Label
     Friend WithEvents TextBox6 As TextBox
     Friend WithEvents Label16 As Label
-    Friend WithEvents ListView1 As ListView
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label18 As Label
     Friend WithEvents TextBox2 As TextBox
@@ -221,4 +235,6 @@ Partial Class Cart
     Friend WithEvents Label2 As Label
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents UtilitiesBindingSource As BindingSource
 End Class

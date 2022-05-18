@@ -16,9 +16,6 @@
             MessageBox.Show("Registration Unsuccessful")
         Else
             MessageBox.Show("Registration Successful")
-            Dim loginPage As Login
-            loginPage = New Login
-            loginPage.Show()
         End If
     End Sub
 End Class
